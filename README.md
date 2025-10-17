@@ -131,10 +131,7 @@ python -m src.pipeline
 - **Never** commit tokens/IDs; put them in **GitHub Secrets** only.
 - To revoke: remove the Integration from Notion **Connections** or reset the token.
 
----
 
-## License
-MIT
 
 
 ---
@@ -267,6 +264,3 @@ python -m src.pipeline
 - 撤销权限：在 Notion **Connections** 移除该 Integration 或在集成页面重置 token。
 
 ---
-
-## 许可证
-MIT
