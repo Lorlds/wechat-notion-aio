@@ -1,6 +1,6 @@
-# 微信公众号 → Notion（AIO 一体化页面版，UTC+8）
+# 读取微信公众号分析导入 Wechat → Notion（AIO 一体化页面版，UTC+8）
 
-适配你的一体化页面：**Sources / Events / Rules（内联数据库）+ Daily Briefs（子页面）**。程序每天在 **UTC+8** 定时运行：
+适配一体化页面：**Sources / Events / Rules（内联数据库）+ Daily Briefs（子页面）**。程序每天在 **UTC+8** 定时运行：
 - 读取 **Sources**（只取 Enabled=✅ 的条目）
 - 获取 RSS/页面，按 **Rules**（可在 Notion 内编辑）打分筛选
 - 去重后写入 **Events**
@@ -60,5 +60,5 @@ python -m src.pipeline
 
 ## 6) 常见问题
 - 运行后 Events 没有新增？检查：① Sources 是否勾选 Enabled；② Rules 的阈值是否过高；③ Feed 是否可达；④ 集成权限是否 **Can edit**。
-- 想加“数学建模/互联网+/大创/ACM-ICPC”等关键词？直接在 **Rules** 库新增对应 `Key=TRIGGERS_COMP/AUDIENCE/PRIZE/ORG_AUTH` 的规则，或给我要一份 CSV。
+- 想加“数学建模/互联网+/大创/ACM-ICPC”等关键词？直接在 **Rules** 库新增对应 `Key=TRIGGERS_COMP/AUDIENCE/PRIZE/ORG_AUTH` 的规则，或一份 CSV。
 
