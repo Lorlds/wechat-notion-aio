@@ -1,0 +1,28 @@
+name: daily-wechat-to-notion-aio
+
+on:
+  schedule:
+    - cron: "0 1 * * *"  # 01:00 UTC = 09:00 UTC+8
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_SOURCES_DB: ${{ secrets.NOTION_SOURCES_DB }}
+      NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+      NOTION_RULES_DB: ${{ secrets.NOTION_RULES_DB }}
+      NOTION_DAILY_PARENT: ${{ secrets.NOTION_DAILY_PARENT }}
+      TZ: ${{ vars.TZ || 'Asia/Shanghai' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run pipeline
+        run: python -m src.pipeline
