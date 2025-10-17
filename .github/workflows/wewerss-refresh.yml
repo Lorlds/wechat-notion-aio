@@ -1,1 +1,29 @@
+name: wewerss-refresh (co-run with notion pipeline)
 
+on:
+  schedule:
+    - cron: "30 6 * * *"   # 14:30 UTC+8
+    - cron: "30 11 * * *"  # 19:30 UTC+8
+    - cron: "59 15 * * *"  # 23:59 UTC+8
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refresh 'all.atom'
+        run: |
+          if [ -n "${{ secrets.WEWE_BASE }}" ]; then
+            curl -fsS "${{ secrets.WEWE_BASE }}/feeds/all.atom?update=true" || true
+          else
+            echo "WEWE_BASE not set, skip."
+          fi
+      - name: Refresh specific feedIds (optional)
+        run: |
+          if [ -n "${{ secrets.WEWE_BASE }}" ] && [ -n "${{ secrets.WEWE_FEED_IDS }}" ]; then
+            for f in ${{ secrets.WEWE_FEED_IDS }}; do
+              curl -fsS "${{ secrets.WEWE_BASE }}/feeds/$f.atom?update=true" || true
+            done
+          else
+            echo "No FEED_IDS provided, skip per-feed refresh."
+          fi
